@@ -1,8 +1,13 @@
 package fi.arcada.sos22_1_raknare;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.OptionalInt;
 import java.util.Random;
+import java.util.Set;
 
 public class Statistics {
 
@@ -66,9 +71,9 @@ public class Statistics {
         for (double dataValue: dataset) {
             sumDiff += Math.pow(dataValue-avg, 2);
         }
-        // Dela summan med antalet värden (räkna ut variansen)
+
         double variance = sumDiff / dataset.size();
-        // Till sist, ta roten av variansen och returnera
+
         return Math.sqrt(variance);
     }
 
@@ -83,4 +88,44 @@ public class Statistics {
         double min = Collections.min(dataset);
         return min;
     }
+
+    // Mode
+    public static double calcMode(ArrayList<Double> dataset) {
+        HashMap arrayVals = new HashMap();
+        int maxOccurences = 1;
+        double mode = dataset.get(0);
+
+        for(int i = 0; i<dataset.size(); i++)
+        {
+            double currentIndexVal = dataset.get(i);
+            if(arrayVals.containsKey(currentIndexVal)){
+                int currentOccurencesNum = (Integer) arrayVals.get(currentIndexVal);
+                currentOccurencesNum++;
+                arrayVals.put(currentIndexVal, currentOccurencesNum );
+                if(currentOccurencesNum >= maxOccurences)
+                {
+                    mode = currentIndexVal;
+                    maxOccurences = currentOccurencesNum;
+                }
+            }
+            else{
+                arrayVals.put(dataset.get(i), 1);
+            }
+        }
+
+        return mode;
+    }
+
+    // Lower quartile
+    public static double calcLQ(ArrayList<Double> dataset) {
+        return 5.0;
+    }
+
+    // Upper quartile
+    public static double calcUQ(ArrayList<Double> dataset) {
+        return 5.0;
+    }
+
+    // Interquartile distance
+    public static double calcQD(ArrayList<Double> dataset) { return 5.0; }
 }
