@@ -1,38 +1,11 @@
 package fi.arcada.sos22_1_raknare;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.OptionalInt;
-import java.util.Random;
-import java.util.Set;
+
 
 public class Statistics {
-
-    // Metod för att generera en datamängd att testa med
-    public static ArrayList<DataItem> getSampleDataset() {
-        Random rnd = new Random();
-
-        ArrayList<DataItem> sampleData = new ArrayList<>();
-        String[] names = { "Fili", "Kili", "Balin", "Dwalin", "Ori", "Nori", "Dori", "Gloin", "Oin", "Bifur", "Bofur", "Bombur", "Thorin" };
-        for (String name: names) {
-            sampleData.add(new DataItem(name, rnd.nextInt(300)+100));
-        }
-        return sampleData;
-    }
-
-    // Metod för att skapa skild ArrayList med endast värdena från DataItems
-    public static ArrayList<Double> getDataValues(ArrayList<DataItem> dataItems) {
-        // Skapa ny arraylist för Double-värden
-        ArrayList<Double> dataValues = new ArrayList<>();
-        // Loopa igenom dataItems och spara endast värdena i den nya arrayListen
-        for (DataItem item: dataItems) {
-            dataValues.add(item.getValue());
-        }
-        return dataValues;
-    }
 
     public static ArrayList<Double> getSorted(ArrayList<Double> dataSet) {
         ArrayList<Double> sortedList = new ArrayList<>(dataSet);
@@ -40,7 +13,7 @@ public class Statistics {
         return sortedList;
     }
 
-    // Average
+    // Mean
     public static double calcMean(ArrayList<Double> dataset) {
         double sum = 0;
         for (int i = 0; i < dataset.size(); i++) {
@@ -116,16 +89,46 @@ public class Statistics {
         return mode;
     }
 
-    // Lower quartile
+    // Lower quartile (when more than four values)
     public static double calcLQ(ArrayList<Double> dataset) {
-        return 5.0;
+        Collections.sort(dataset);
+
+        int length = dataset.size();
+        double LQ = 0;
+
+        if (length < 4) {
+            LQ = 0;
+        } else if(length % 2 != 0) {
+            LQ = (dataset.get((length / 4) - 1) + dataset.get(length / 4)) / 2;
+        } else {
+            LQ = dataset.get((length / 4) - 1);
+        }
+        return LQ;
     }
 
-    // Upper quartile
+    // Upper quartile (when more than four values)
     public static double calcUQ(ArrayList<Double> dataset) {
-        return 5.0;
+          double ans[] = new double[3];
+
+        for (int quartileType = 1; quartileType < 4; quartileType++) {
+            float length = dataset.size() + 1;
+            double quartile;
+            float newArraySize = (length * ((float) (quartileType) * 25 / 100)) - 1;
+            Collections.sort(dataset);
+            if (newArraySize % 1 == 0) {
+                quartile = dataset.get((int) (newArraySize));
+            } else {
+                int newArraySize1 = (int) (newArraySize);
+                quartile = (dataset.get(newArraySize1) + dataset.get(newArraySize1 + 1)) / 2;
+            }
+            ans[quartileType - 1] =  quartile;
+        }
+        return ans[2];
     }
 
-    // Interquartile distance
-    public static double calcQD(ArrayList<Double> dataset) { return 5.0; }
+    // Quartile range (when more than four values)
+    public static double calcQR(ArrayList<Double> dataset) {
+        double QR = Statistics.calcUQ(dataset) - Statistics.calcLQ(dataset);
+        return QR;
+    }
 }

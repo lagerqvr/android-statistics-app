@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textRow, textMean, textDataOut, textSD;
+    TextView textRow, textMean;
     EditText editValue, editDescription;
 
     ArrayList<Double> dataSet = new ArrayList<>();
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
         textRow.setText(dataOut.substring(2));
         editValue.getText().clear();
+        editDescription.getText().clear();
     }
 
     public void btnClear(View view) {
@@ -58,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void calculate(View view) {
 
-        String meanStr = String.format("Min: %.2f\nMax: %.2f\nMean: %.2f\nMedian: %.2f\nStandard deviation: %.2f\nMode: %.2f\nLower quartile: %.2f\nUpper quartile: %.2f\nInterquartile distance: %.2f",
+        String meanStr = String.format("Min: %.2f\nMax: %.2f\nMean: %.2f\nMedian: %.2f\nStandard deviation: %.2f\nMode: %.2f\nLower quartile: %.2f\nUpper quartile: %.2f\nQuartile range: %.2f",
                 Statistics.calcMin(dataSet), Statistics.calcMax(dataSet), Statistics.calcMean(dataSet),
                 Statistics.calcMedian(dataSet), Statistics.calcSD(dataSet), Statistics.calcMode(dataSet),
-                Statistics.calcLQ(dataSet), Statistics.calcUQ(dataSet), Statistics.calcQD(dataSet)
+                Statistics.calcLQ(dataSet), Statistics.calcUQ(dataSet), Statistics.calcQR(dataSet)
         );
         textMean.setText(meanStr);
     }
