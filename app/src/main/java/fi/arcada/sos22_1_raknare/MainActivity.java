@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Double> dataSet = new ArrayList<>();
     ArrayList<DataItem> dataItems = new ArrayList<>();
 
+    ArrayList<String> textSet = new ArrayList<>();
+    ArrayList<String> textItems = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,25 +31,28 @@ public class MainActivity extends AppCompatActivity {
 
         editValue = findViewById(R.id.editTextName2);
         editDescription = findViewById(R.id.editTextName);
-
-        /* dataItems = Statistics.getSampleDataset(); // ArrayList med testdata (flera DataItem-objekt)
-        dataSet = Statistics.getDataValues(dataItems); */// ArrayList med DataItem-objektens värden
-
     }
 
     public void btnClick(View view) {
         double val = Integer.parseInt(editValue.getText().toString());
         dataSet.add(val);
 
-        // Number input
+        String txt = editDescription.getText().toString();
+        textSet.add(txt);
+
+        int i = 0;
+
+        // Number & text input
         String dataOut = "";
         for (double number: dataSet) {
-                dataOut += ", " + number;
+                dataOut += ", " + textSet.get(i) + " " + number;
+                i++;
         }
         dataOut += "\n";
         for (DataItem item: dataItems) {
             dataOut += item.getName() + ":" + item.getValue() + " ";
         }
+
         textRow.setText(dataOut.substring(2));
         editValue.getText().clear();
         editDescription.getText().clear();
@@ -55,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public void btnClear(View view) {
         textRow.setText("");
         dataSet.clear();
+        textSet.clear();
     }
 
     public void calculate(View view) {
