@@ -1,6 +1,8 @@
 package fi.arcada.sos22_1_raknare;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,65 +14,73 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textRow, textMean;
+    TextView textResult;
     EditText editValue, editDescription;
+    RecyclerView recyclerView;
 
     ArrayList<Double> dataSet = new ArrayList<>();
     ArrayList<DataItem> dataItems = new ArrayList<>();
 
     ArrayList<String> textSet = new ArrayList<>();
-    ArrayList<String> textItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textRow = findViewById(R.id.helloText);
-        textMean = findViewById(R.id.textViewMean);
-
+        textResult = findViewById(R.id.textViewMean);
         editValue = findViewById(R.id.editTextName2);
         editDescription = findViewById(R.id.editTextName);
+        recyclerView = findViewById(R.id.scrollText);
+
     }
 
     public void btnClick(View view) {
-        double val = Integer.parseInt(editValue.getText().toString());
-        dataSet.add(val);
+        try {
+            double val = Integer.parseInt(editValue.getText().toString());
+            dataSet.add(val);
 
-        String txt = editDescription.getText().toString();
-        textSet.add(txt);
+            String txt = editDescription.getText().toString();
+            textSet.add(txt);
 
-        int i = 0;
+            dataItems.add(new DataItem(txt, val));
 
-        // Number & text input
-        String dataOut = "";
-        for (double number: dataSet) {
-                dataOut += ", " + textSet.get(i) + " " + number;
-                i++;
+            ViewAdapter adapter = new ViewAdapter(dataItems, this);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            editValue.getText().clear();
+            editDescription.getText().clear();
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
-        dataOut += "\n";
-        for (DataItem item: dataItems) {
-            dataOut += item.getName() + ":" + item.getValue() + " ";
-        }
 
-        textRow.setText(dataOut.substring(2));
-        editValue.getText().clear();
-        editDescription.getText().clear();
     }
 
     public void btnClear(View view) {
-        textRow.setText("");
-        dataSet.clear();
-        textSet.clear();
+        try {
+            dataItems.clear();
+            dataSet.clear();
+            textSet.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void calculate(View view) {
 
-        String meanStr = String.format("Min: %.2f\nMax: %.2f\nMean: %.2f\nMedian: %.2f\nStandard deviation: %.2f\nMode: %.2f\nLower quartile: %.2f\nUpper quartile: %.2f\nQuartile range: %.2f",
-                Statistics.calcMin(dataSet), Statistics.calcMax(dataSet), Statistics.calcMean(dataSet),
-                Statistics.calcMedian(dataSet), Statistics.calcSD(dataSet), Statistics.calcMode(dataSet),
-                Statistics.calcLQ(dataSet), Statistics.calcUQ(dataSet), Statistics.calcQR(dataSet)
-        );
-        textMean.setText(meanStr);
+        try {
+            String meanStr = String.format("Min: %.2f\nMax: %.2f\nMean: %.2f\nMedian: %.2f\nStandard deviation: %.2f\nMode: %.2f\nLower quartile: %.2f\nUpper quartile: %.2f\nQuartile range: %.2f",
+                    Statistics.calcMin(dataSet), Statistics.calcMax(dataSet), Statistics.calcMean(dataSet),
+                    Statistics.calcMedian(dataSet), Statistics.calcSD(dataSet), Statistics.calcMode(dataSet),
+                    Statistics.calcLQ(dataSet), Statistics.calcUQ(dataSet), Statistics.calcQR(dataSet)
+            );
+            textResult.setText(meanStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

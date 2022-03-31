@@ -3,10 +3,12 @@ package fi.arcada.sos22_1_raknare;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 
 public class Statistics {
 
+    // Sorting method
     public static ArrayList<Double> getSorted(ArrayList<Double> dataSet) {
         ArrayList<Double> sortedList = new ArrayList<>(dataSet);
         Collections.sort(sortedList);

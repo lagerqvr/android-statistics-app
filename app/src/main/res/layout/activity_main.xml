@@ -10,80 +10,88 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/red"
         android:onClick="btnClear"
         android:text="Clear"
         app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/helloText" />
-
-    <TextView
-        android:id="@+id/helloText"
-        android:layout_width="322dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="16dp"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollText" />
 
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="106dp"
         android:layout_height="48dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTextName2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextName2"
         android:layout_width="106dp"
         android:layout_height="48dp"
-        android:layout_marginStart="164dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Value"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnOk"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnOk"
         android:layout_width="85dp"
         android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="24dp"
         android:onClick="btnClick"
         android:text="OK"
-        app:layout_constraintBottom_toTopOf="@+id/helloText"
-        app:layout_constraintStart_toEndOf="@+id/editTextName2" />
+        app:layout_constraintBottom_toTopOf="@+id/scrollText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewMean"
-        android:layout_width="286dp"
-        android:layout_height="294dp"
+        android:layout_width="265dp"
+        android:layout_height="278dp"
         android:layout_marginTop="20dp"
         android:lineSpacingExtra="10sp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/helloText"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:onClick="calculate"
         android:text="Calculate"
-        app:layout_constraintStart_toStartOf="@+id/helloText"
-        app:layout_constraintTop_toBottomOf="@+id/helloText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scrollText"
+        android:layout_width="408dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="none"
+        android:fadingEdgeLength="15dp"
+        android:requiresFadingEdge="vertical"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
