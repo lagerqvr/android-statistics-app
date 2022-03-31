@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             dataItems.clear();
             dataSet.clear();
             textSet.clear();
+            textResult.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }
